@@ -1,4 +1,5 @@
 from django.db import migrations, models
+import news.validators
 
 
 class Migration(migrations.Migration):
@@ -8,7 +9,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Categories",
+            name="Category",
             fields=[
                 (
                     "id",
@@ -19,7 +20,13 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=200)),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=200,
+                        validators=[news.validators.validate_category_name],
+                    ),
+                ),
             ],
         ),
     ]
