@@ -1,6 +1,6 @@
 from django.urls import path
 
-from news.views import index, news_details, categories_form
+from news.views import index, news_details, categories_form, news_form
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
         categories_form,
         name="categories-form",
     ),
+    path("http://127.0.0.1:8000/news/", news_form, name="news-form"),
 ]

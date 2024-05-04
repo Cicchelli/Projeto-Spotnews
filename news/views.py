@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from news.models import Category, News
-from news.forms import CreateCategoriesForm
+from news.models import Category, News, User
+from news.forms import CreateCategoriesForm, NewsForm
 
 
 def index(request):
@@ -19,3 +19,19 @@ def categories_form(request):
         Category.objects.create(**form.cleaned_data)
         return redirect("home-page")
     return render(request, "categories_form.html", {"form": form})
+
+
+def news_form(request):
+    users = User.objects.all()
+    categories = Category.objects.all()
+    form = NewsForm(request.POST or None, request.FILES or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("home-page")
+
+    return render(
+        request,
+        "news_form.html",
+        {"form": form, "users": users, "categories": categories},
+    )
