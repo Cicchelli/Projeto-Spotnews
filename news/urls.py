@@ -7,11 +7,13 @@ from news.views import (
     news_details,
     categories_form,
     news_form,
+    UserViewSet,
 )
 
 
 router = routers.DefaultRouter()
 router.register(r"categories", CategoryViewSet)
+router.register(r"users", UserViewSet)
 
 urlpatterns = [
     path("http://127.0.0.1:8000", index, name="home-page"),
