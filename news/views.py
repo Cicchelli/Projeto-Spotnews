@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from news.models import Category, News, User
-from news.forms import CreateCategoriesForm, NewsForm
-
+from .models import Category, News, User
+from .forms import CreateCategoriesForm, NewsForm
 from rest_framework import viewsets
 from rest_framework.response import Response
-from news.serializers import CategorySerializer, NewsSerializer, UserSerializer
+from .serializers import CategorySerializer, NewsSerializer, UserSerializer
 
 
 def index(request):
@@ -29,11 +28,9 @@ def news_form(request):
     users = User.objects.all()
     categories = Category.objects.all()
     form = NewsForm(request.POST or None, request.FILES or None)
-
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("home-page")
-
     return render(
         request,
         "news_form.html",

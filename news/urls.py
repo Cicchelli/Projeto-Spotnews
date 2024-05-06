@@ -1,6 +1,5 @@
 from django.urls import path, include
 from rest_framework import routers
-
 from news.views import (
     CategoryViewSet,
     index,
@@ -11,24 +10,15 @@ from news.views import (
     NewsViewSet,
 )
 
-
 router = routers.DefaultRouter()
 router.register(r"categories", CategoryViewSet)
 router.register(r"users", UserViewSet)
 router.register(r"news", NewsViewSet)
 
 urlpatterns = [
-    path("http://127.0.0.1:8000", index, name="home-page"),
-    path(
-        "http://127.0.0.1:8000/news/<int:id>",
-        news_details,
-        name="news-details-page",
-    ),
-    path(
-        "http://127.0.0.1:8000/categories/",
-        categories_form,
-        name="categories-form",
-    ),
-    path("http://127.0.0.1:8000/news/", news_form, name="news-form"),
+    path("", index, name="home-page"),
+    path("news/<int:id>", news_details, name="news-details-page"),
+    path("categories/", categories_form, name="categories-form"),
+    path("news/", news_form, name="news-form"),
     path("api/", include(router.urls)),
 ]
